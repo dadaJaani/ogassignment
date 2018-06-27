@@ -9,21 +9,26 @@ class ListItem extends Component {
     }
   }
 
+  setSearch = (val) => {
+    if (this.props.setSearch) {
+      this.props.setSearch(val)
+    }
+  }
+
   render() {
     // console.log(this.props.item);
 
     return (
       <div
         className='list-item'
-        onClick={() => this.goToAlert(this.props.item.id)}
       >
 
-        <div className='li-info-count'>
+        <div className='li-info-count' onClick={() => this.goToAlert(this.props.item.id)}>
           <span className='li-info-count-number'>x{this.props.item.count}</span>
         </div>
 
-        <div className='li-info-main'>
-          <div className='li-info-main-message'>
+        <div className='li-info-main' >
+          <div className='li-info-main-message' onClick={() => this.goToAlert(this.props.item.id)}>
             {this.props.item.message}
           </div>
 
@@ -31,7 +36,9 @@ class ListItem extends Component {
             <div className='field-title-main'>Teams</div>
             <div className='field-value-main'>
               {this.props.item.teams.map(team => (
-                <span key={team} className='team-member'>
+                <span key={team} className='team-member'
+                  onClick={() => this.setSearch(team)}
+                >
                   {team}
                 </span>
               ))}
@@ -43,7 +50,9 @@ class ListItem extends Component {
                 <div className='field-title-main'>Tags</div>
                 <div className='field-value-main'>
                   {this.props.item.tag.map(t => (
-                    <span key={t} className='li-tag'>
+                    <span key={t} className='li-tag'
+                      onClick={() => this.setSearch(t)}
+                    >
                       {t}
                     </span>
                   ))}
@@ -54,13 +63,15 @@ class ListItem extends Component {
 
         </div>
 
-        <div className='li-info-acknowledge'>
+        <div className='li-info-acknowledge' onClick={() => this.goToAlert(this.props.item.id)}>
           <span className='li-info-acknowledge-date'>{this.props.item.createdAt}</span>
 
           <div  className='li-info-acknowledge-owner'>
             {this.props.item.owner ? this.props.item.owner : "No Owner"}
           </div>
-          <div  className='li-info-acknowledge-open'>
+          <div  className={this.props.item.acknowledged
+              ? 'li-info-acknowledge-open acked'
+              : 'li-info-acknowledge-open notacked'}>
             {this.props.item.acknowledged ? "Ack'ed" : "Open"}
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import List from './components/List'
 import Modal from './components/Modal'
+import escapeRegExp from 'escape-string-regexp'
 import './styles/main.css';
 
 
@@ -15,6 +16,7 @@ class App extends Component {
       selectedAlert: {},
       selectedNotes: {},
       isModalOpen: false,
+      query: '',
     }
   }
 
@@ -30,8 +32,11 @@ class App extends Component {
     })
   }
 
+  updateQueryAndSearch = (val) => {
+    this.setState({ query: val })
+  }
+
   setAlert = (id) => {
-    console.log(id);
     this.setState({
       selectedAlert: this.state.alerts.filter(item => item.id === id),
       selectedNotes: this.state.notes.filter(note => note.alertId === id),
@@ -43,21 +48,56 @@ class App extends Component {
     this.setState({isModalOpen: false})
   }
 
+  setSearch = (val) => {
+    this.setState({
+      query: val.trim(),
+      isModalOpen: false,
+    })
+  }
+
   render() {
 
-    // return (
-    //   <div>
-    //     Mar
-    //   </div>
-    // )
-    return (
+    const { query, alerts } = this.state
 
-      <div>
+    let showingAlerts
+
+    if (query) {
+      let match = new RegExp(escapeRegExp(query), 'i')
+      showingAlerts = alerts.filter( alert => {
+        let display = match.test(alert.message)
+        if (!display && alert.tag) {
+          for (var i = 0; i < alert.tag.length; i++) {
+            display =  match.test(alert.tag[i])
+            if (display) break;
+          }
+        }
+        if (!display && alert.teams) {
+          for (var i = 0; i < alert.teams.length; i++) {
+            display =  match.test(alert.teams[i])
+            if (display) break;
+          }
+        }
+        if (!display && alert.owner) {
+          display =  match.test(alert.owner)
+        }
+        return display
+      })
+    } else {
+      showingAlerts = alerts
+    }
+
+    return (
+      <div className='root'>
         <div className='header-main'>
-          <img src={require('./assets/logo2.png')} alt="OpsGenie" height='80' className='header-logo-image'/>
-          <img src={require('./assets/logo3.png')} alt="OpsGenie" height='40' className='header-logo-text2'/>
+          <img src={require('./assets/logo2.png')} alt="OpsGenie" height='60' className='header-logo-image'/>
+          <img src={require('./assets/logo3.png')} alt="OpsGenie" height='22' className='header-logo-text2'/>
           <div className='header-search'>
-            <input placeholder='Search' className='header-search-in'></input>
+            <input
+              placeholder='Search'
+              value={this.state.query}
+              className='header-search-in'
+              onChange={(event) => this.updateQueryAndSearch(event.target.value)}
+            />
             <img src={require('./assets/search.png')} height='20' className='search-logo'/>
           </div>
           <img src={require('./assets/logo3.png')} alt="OpsGenie" height='30' className='header-logo-text'/>
@@ -66,8 +106,9 @@ class App extends Component {
         </div>
 
         <List
-          items={this.state.alerts}
+          items={showingAlerts}
           setAlert={this.setAlert}
+          setSearch={this.setSearch}
         />
 
         <Modal
@@ -75,6 +116,7 @@ class App extends Component {
           notes={this.state.selectedNotes}
           visible={this.state.isModalOpen}
           closeModal={this.closeModal}
+          setSearch={this.setSearch}
         />
 
       </div>

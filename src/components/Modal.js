@@ -12,6 +12,12 @@ class Modal extends Component {
     this.props.closeModal();
   }
 
+  setSearch = (val) => {
+    if (this.props.setSearch) {
+      this.props.setSearch(val)
+    }
+  }
+
   switchModeToNotes = () => {
     this.setState({ detailSelected: false })
   }
@@ -22,8 +28,7 @@ class Modal extends Component {
 
   render() {
     const { alert, notes, visible } = this.props
-    console.log(this.props);
-    console.log(alert);
+    
     let estTime = 0;
     let insertedAt = 0;
     if (alert) {
@@ -128,7 +133,9 @@ class Modal extends Component {
                         <div className='field-title'>Tags:</div>
                         <div className='field-value'>
                           {alert.tag.map(t => (
-                            <span key={t} className='li-tag'>
+                            <span key={t} className='li-tag'
+                              onClick={() => this.setSearch(t)}
+                            >
                               {t}
                             </span>
                           ))}
@@ -140,14 +147,16 @@ class Modal extends Component {
                     <div className='field-title'>Teams:</div>
                     <div className='field-value'>
                       {alert.teams.map(team => (
-                        <span key={team} className='team-member'>
+                        <span key={team} className='team-member'
+                          onClick={() => this.setSearch(team)}
+                        >
                           {team}
                         </span>
                       ))}
                     </div>
                   </div>
                 </div>
-              : <div className='modal-tab'>
+              : <div className='modal-tab-notes'>
                   <div className='note-list-container'>
 
                     {notes.length > 0 && notes.map(note => {

@@ -3,11 +3,13 @@
 This project is being done in React and webpack.
 
 
-######To start the project:
+##To start the project:
+
 Do **"npm start"** in the terminal after navigating to the directory.
 
 
-######To Build the project using webpack:
+##To Build the project using webpack:
+
 Do **"npm build"** in the terminal after navigating to the directory.
 
 

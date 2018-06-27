@@ -1,3 +1,23 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html * {
+  font-family: 'Roboto' !important;
+}
+
+.list-container-empty {
+
+}
+.list-container {
+  /* position: fixed; */
+  margin-top: 100px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  overflow: scroll;
+
+}
+
 .header-main {
   position: fixed;
   display: flex;
@@ -13,21 +33,22 @@
 
 .header-logo-image {
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 20px;
   cursor: pointer;
   opacity: 0.8;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 .header-logo-image:hover {
   opacity: 1;
+  transform: scale(1.2);
 }
 
 .header-logo-image:hover ~ .header-logo-text2 {
   opacity: 1;
 }
 .header-logo-image:hover ~ .header-logo-text {
-  animation: beauty 2s infinite;
+  /* animation: beauty 2s infinite; */
 }
 
 @keyframes beauty {
@@ -53,8 +74,8 @@
 }
 .header-logo-text2 {
   position: absolute;
-  top: 30px;
-  left: 120px;
+  top: 39px;
+  left: 100px;
   opacity: 0;
   transition: all 1s;
 }
@@ -98,13 +119,13 @@
 
 
 .list-item {
-  cursor: pointer;
-  padding: 10px;
+  padding: 10px 0px;
   margin: 10px;
   border-radius: 10px;
   transition: 0.2s all;
   display: flex;
   justify-content: space-between;
+  min-height: 75px;
 }
 
 .list-item:hover {
@@ -114,8 +135,10 @@
 .li-info-count {
   flex: 0.1;
   display: flex;
+  padding: 5px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .li-info-count-number {
   width: 25px;
@@ -133,11 +156,14 @@
 .li-info-main {
   flex: 2;
   display: flex;
+  padding: 0px 5px;
   flex-direction: column;
   justify-content: space-around;
   align-items: stretch;
+  cursor: pointer;
 }
 .li-info-main-message {
+  cursor: pointer;
   font-size: 14px;
   font-weight: 200;
   color: #555;
@@ -190,6 +216,7 @@
   font-size: 12px;
   font-weight: 200;
   cursor: pointer;
+  z-index: 1;
 }
 
 .team-member:hover {
@@ -200,7 +227,10 @@
 .li-info-acknowledge {
   flex: 0.5;
   display: flex;
+  padding: 0 10px;
   flex-direction: column;
+  justify-content: space-around;
+  cursor: pointer;
   align-items: flex-end;
 }
 
@@ -209,8 +239,18 @@
 
 }
 .li-info-acknowledge-owner {
-
+  font-size: 13px;
 }
 .li-info-acknowledge-open {
-
+  font-size: 13px;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+.acked {
+  background-color: #539dcf;
+  color: white;
+}
+.notacked {
+  background-color: #ee5e68;
+  color: white;
 }
