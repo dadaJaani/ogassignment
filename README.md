@@ -5,12 +5,20 @@ This project is being done in React and webpack.
 
 ##To start the project:
 
-Do **"npm start"** in the terminal after navigating to the directory.
+Type in the following command in the terminal to run:
+```
+npm start
+```
 
 
 ##To Build the project using webpack:
 
-Do **"npm build"** in the terminal after navigating to the directory.
+Type in the following command in the terminal to run:
+```
+npm build
+```
+
+There is also a distributed file made by webpack. it is in the **root/dist** directory. The whole project can be run through the index file in that directory.
 
 
 

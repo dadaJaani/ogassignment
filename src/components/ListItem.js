@@ -21,23 +21,27 @@ class ListItem extends Component {
     return (
       <div
         className='list-item'
+        onClick={() => this.goToAlert(this.props.item.id)}
       >
 
-        <div className='li-info-count' onClick={() => this.goToAlert(this.props.item.id)}>
+        <div className='li-info-count' >
           <span className='li-info-count-number'>x{this.props.item.count}</span>
         </div>
 
         <div className='li-info-main' >
-          <div className='li-info-main-message' onClick={() => this.goToAlert(this.props.item.id)}>
+          <div className='li-info-main-message' >
             {this.props.item.message}
           </div>
 
           <div className='team-container'>
-            <div className='field-title-main'>Teams</div>
+            <div className='field-title-main' >Teams</div>
             <div className='field-value-main'>
               {this.props.item.teams.map(team => (
                 <span key={team} className='team-member'
-                  onClick={() => this.setSearch(team)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    this.setSearch(team)
+                  }}
                 >
                   {team}
                 </span>
@@ -51,7 +55,10 @@ class ListItem extends Component {
                 <div className='field-value-main'>
                   {this.props.item.tag.map(t => (
                     <span key={t} className='li-tag'
-                      onClick={() => this.setSearch(t)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        this.setSearch(t)
+                      }}
                     >
                       {t}
                     </span>
@@ -63,7 +70,7 @@ class ListItem extends Component {
 
         </div>
 
-        <div className='li-info-acknowledge' onClick={() => this.goToAlert(this.props.item.id)}>
+        <div className='li-info-acknowledge' >
           <span className='li-info-acknowledge-date'>{this.props.item.createdAt}</span>
 
           <div  className='li-info-acknowledge-owner'>

@@ -217,6 +217,7 @@ html * {
   font-weight: 200;
   cursor: pointer;
   z-index: 1;
+  /* display: inline-block; */
 }
 
 .team-member:hover {
