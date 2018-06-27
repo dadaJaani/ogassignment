@@ -1,0 +1,73 @@
+import React, { Component } from 'react'
+import '../styles/main.css'
+
+class ListItem extends Component {
+
+  goToAlert = (id) => {
+    if (this.props.goToAlert) {
+      this.props.goToAlert(id)
+    }
+  }
+
+  render() {
+    // console.log(this.props.item);
+
+    return (
+      <div
+        className='list-item'
+        onClick={() => this.goToAlert(this.props.item.id)}
+      >
+
+        <div className='li-info-count'>
+          <span className='li-info-count-number'>x{this.props.item.count}</span>
+        </div>
+
+        <div className='li-info-main'>
+          <div className='li-info-main-message'>
+            {this.props.item.message}
+          </div>
+
+          <div className='team-container'>
+            <div className='field-title-main'>Teams</div>
+            <div className='field-value-main'>
+              {this.props.item.teams.map(team => (
+                <span key={team} className='team-member'>
+                  {team}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {this.props.item.tag.length > 0
+            ? (<div className='li-tag-container'>
+                <div className='field-title-main'>Tags</div>
+                <div className='field-value-main'>
+                  {this.props.item.tag.map(t => (
+                    <span key={t} className='li-tag'>
+                      {t}
+                    </span>
+                  ))}
+              </div>
+              </div>)
+            : <div/>
+          }
+
+        </div>
+
+        <div className='li-info-acknowledge'>
+          <span className='li-info-acknowledge-date'>{this.props.item.createdAt}</span>
+
+          <div  className='li-info-acknowledge-owner'>
+            {this.props.item.owner ? this.props.item.owner : "No Owner"}
+          </div>
+          <div  className='li-info-acknowledge-open'>
+            {this.props.item.acknowledged ? "Ack'ed" : "Open"}
+          </div>
+        </div>
+
+      </div>
+    )
+  }
+}
+
+export default ListItem
